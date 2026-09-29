@@ -1,8 +1,18 @@
 const mongoose = require('mongoose');
+const dns = require('dns');
+
+// Fix for Windows / c-ares querySrv ECONNREFUSED on MongoDB Atlas
+try {
+  dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
+} catch (e) {
+  // fallback to system resolver
+}
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 10000,
+    });
     console.log(`✅ MongoDB Connected: ${conn.connection.host} → ${conn.connection.name}`);
   } catch (error) {
     console.error(`❌ MongoDB connection error: ${error.message}`);
