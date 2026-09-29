@@ -1,0 +1,33 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+mern/server/.env
+
+# Dependencies
+node_modules/
+mern/server/node_modules/
+mern/client/node_modules/
+
+# Production builds
+dist/
+mern/client/dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Database & Cache
+*.db
+*.sqlite3
+__pycache__/
+*.pyc
