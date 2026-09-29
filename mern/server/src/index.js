@@ -36,11 +36,12 @@ app.use('/api/analytics', require('./routes/analyticsRoutes'));
 
 // Health check
 app.get('/health', (_req, res) => {
+  const mongoSafe = (process.env.MONGO_URI || '').replace(/:([^@]+)@/, ':****@');
   res.json({
     status: 'ok',
     app: 'RecallOps MERN Server',
     timestamp: new Date().toISOString(),
-    mongo: 'mongodb://localhost:27017/recallops',
+    mongo: mongoSafe || 'Connected',
     modules: ['auth', 'incidents', 'memories', 'analytics', 'scenarios'],
   });
 });
